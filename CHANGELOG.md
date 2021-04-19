@@ -4,6 +4,10 @@
 
 ## [Unreleased] - ReleaseDate
 
+* Add `--publish-grace-sleep` parameter that allows to set the number of seconds to sleep between
+  two invocations of `cargo publish`
+* Do not sleep between publishes on dry runs
+
 ## [0.13.11] - 2021-03-25
 
 ## [0.13.10] - 2020-12-28
