@@ -4,6 +4,40 @@
 
 ## [Unreleased] - ReleaseDate
 
+## [0.13.11] - 2021-03-25
+
+## [0.13.10] - 2020-12-28
+
+### Changed
+
+* Dependencies updated
+* Add sleep between publish [#247]
+
+## [0.13.9] - 2020-11-29
+
+### Changed
+
+* Improved diff view in dry-run mode
+
+## [0.13.8] - 2020-09-29
+
+### Added
+
+* New option `post-release-replacements` support [#228]
+
+## [0.13.7] - 2020-09-27
+
+### Changed
+
+* Upgraded crate-index and minimum rust version [#227]
+
+## [0.13.6] - 2020-08-31
+
+### Fixed
+
+* `min`/`max` bug with replacement settings [#225]
+* Better error message for IOError [#226]
+
 ## [0.13.5] - 2020-07-04
 
 ### Added
