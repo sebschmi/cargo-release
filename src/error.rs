@@ -100,5 +100,8 @@ quick_error! {
         DependencyVersionConflict {
             display("Dependency is configured to conflict with new version")
         }
+        InvalidManifestPathError {
+            display("The manifest path does not end with 'Cargo.toml'")
+        }
     }
 }

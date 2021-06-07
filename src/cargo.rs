@@ -6,7 +6,7 @@ use std::path::Path;
 
 use toml::Value;
 
-use crate::cmd::call;
+use crate::cmd::call_on_path;
 use crate::error::FatalError;
 use crate::Features;
 
@@ -23,12 +23,17 @@ pub fn publish(
 ) -> Result<bool, FatalError> {
     let cargo = cargo();
 
-    let mut command: Vec<&str> = vec![
-        &cargo,
-        "publish",
-        "--manifest-path",
-        manifest_path.to_str().unwrap(),
-    ];
+    let mut command = vec![cargo.as_str(), "publish"];
+
+    // Get path to cd to right directory to avoid cargo publish bug
+    if !manifest_path.ends_with("Cargo.toml") {
+        return Err(FatalError::InvalidManifestPathError);
+    }
+    let cd_path = if let Some(cd_path) = manifest_path.parent() {
+        cd_path
+    } else {
+        Path::new(".")
+    };
 
     if let Some(registry) = registry {
         command.push("--registry");
@@ -53,7 +58,7 @@ pub fn publish(
         command.push(additional);
     }
 
-    call(command, dry_run)
+    call_on_path(command, cd_path, dry_run)
 }
 
 pub fn wait_for_publish(

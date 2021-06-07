@@ -11,13 +11,16 @@ fn do_call(
     envs: Option<BTreeMap<&OsStr, &OsStr>>,
     dry_run: bool,
 ) -> Result<bool, FatalError> {
+    if let Some(path) = path {
+        log::trace!("Executing {} in path {}", command.join(" "), path.display());
+    } else {
+        log::trace!("Executing {}", command.join(" "));
+    }
+
     if dry_run {
-        if path.is_some() {
-            log::trace!("cd {}", path.unwrap().display());
-        }
-        log::trace!("{}", command.join(" "));
         return Ok(true);
     }
+
     let mut iter = command.iter();
     let cmd_name = iter.next().unwrap();
 
@@ -43,6 +46,7 @@ fn do_call(
     Ok(result.success())
 }
 
+#[allow(dead_code)]
 pub fn call(command: Vec<&str>, dry_run: bool) -> Result<bool, FatalError> {
     do_call(command, None, None, dry_run)
 }
